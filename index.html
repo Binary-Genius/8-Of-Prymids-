@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CodeWithDiwakar | Neon Pyramid Studio</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #151515 0%, #050505 75%);
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 35px 15px 20px;
+}
+
+header h1 {
+    font-size: clamp(23px, 5vw, 38px);
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #00ecff;
+}
+
+header p {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-top: 12px;
+}
+
+/* GRID */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.card {
+    height: 330px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #151515, #080808);
+    border: 1px solid #292929;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+        inset 0 0 30px #000,
+        0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color);
+    box-shadow:
+        0 0 20px var(--shadow),
+        0 10px 35px #000;
+}
+
+/* CARD LIGHT */
+.card::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    bottom: 45px;
+    background: var(--shadow);
+    filter: blur(65px);
+    opacity: 0.5;
+}
+
+/* TITLE */
+.card h2 {
+    position: absolute;
+    top: 20px;
+    z-index: 5;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--color);
+    text-shadow: 0 0 15px var(--color);
+}
+
+.speed {
+    position: absolute;
+    bottom: 17px;
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 2px;
+    z-index: 5;
+}
+
+/* PYRAMID SCENE */
+.scene {
+    width: 200px;
+    height: 200px;
+    perspective: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* PYRAMID */
+.pyramid {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    transform-style: preserve-3d;
+    animation: rotate var(--speed) linear infinite;
+}
+
+/* ROTATION */
+@keyframes rotate {
+    0% {
+        transform: rotateX(-30deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(-30deg) rotateY(360deg);
+    }
+}
+
+/* PYRAMID FACES */
+.faces {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+}
+
+.faces span {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        #161616 5%,
+        var(--color) 100%
+    );
+    clip-path: polygon(
+        50% 0%,
+        0% 100%,
+        100% 100%
+    );
+    transform:
+        rotateY(calc(90deg * var(--i)))
+        translateZ(90px)
+        rotateX(30deg);
+    transform-origin: bottom;
+    filter: drop-shadow(0 0 8px var(--color));
+}
+
+/* NEON BASE GLOW */
+.glow {
+    position: absolute;
+    inset: 0;
+    background: var(--color);
+    transform: rotateX(90deg) translateZ(-90px);
+    filter: brightness(1.5);
+    box-shadow:
+        0 0 40px var(--color),
+        0 0 80px var(--color),
+        0 0 120px var(--color),
+        0 0 180px var(--color);
+    opacity: 0.75;
+}
+
+/* COLORS */
+.green {
+    --color: #00ff00;
+    --shadow: rgba(0,255,0,0.45);
+    --speed: 8s;
+}
+
+.yellow {
+    --color: #ffff00;
+    --shadow: rgba(255,255,0,0.45);
+    --speed: 6s;
+}
+
+.pink {
+    --color: #ff00ff;
+    --shadow: rgba(255,0,255,0.45);
+    --speed: 10s;
+}
+
+.red {
+    --color: #ff0000;
+    --shadow: rgba(255,0,0,0.45);
+    --speed: 5s;
+}
+
+.blue {
+    --color: #00aaff;
+    --shadow: rgba(0,170,255,0.45);
+    --speed: 7s;
+}
+
+.purple {
+    --color: #a020f0;
+    --shadow: rgba(160,32,240,0.45);
+    --speed: 9s;
+}
+
+.orange {
+    --color: #ff7900;
+    --shadow: rgba(255,121,0,0.45);
+    --speed: 4s;
+}
+
+.cyan {
+    --color: #00ffff;
+    --shadow: rgba(0,255,255,0.45);
+    --speed: 11s;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: #555;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .card {
+        height: 290px;
+    }
+
+    .scene {
+        transform: scale(0.85);
+    }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+    .pyramid {
+        animation: none;
+    }
+
+    .card {
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>CodeWithDiwakar</h1>
+    <p>NEON PYRAMID STUDIO</p>
+</header>
+
+<main class="container" id="pyramidContainer"></main>
+
+<footer>
+    © 2026
+    <a href="https://binary-genius.github.io/CodeWithDiwakar/"
+       target="_blank"
+       rel="noopener noreferrer">
+        CODEWITHDIWAKAR
+    </a>
+    <br><br>
+    3D NEON PYRAMID EXPERIENCE
+</footer>
+    <script>
+
+// PYRAMID CONFIGURATION
+const pyramids = [
+    {
+        name: "NEON GREEN",
+        className: "green",
+        speed: "8 SECONDS"
+    },
+    {
+        name: "NEON YELLOW",
+        className: "yellow",
+        speed: "6 SECONDS"
+    },
+    {
+        name: "NEON PINK",
+        className: "pink",
+        speed: "10 SECONDS"
+    },
+    {
+        name: "NEON RED",
+        className: "red",
+        speed: "5 SECONDS"
+    },
+    {
+        name: "ELECTRIC BLUE",
+        className: "blue",
+        speed: "7 SECONDS"
+    },
+    {
+        name: "ROYAL PURPLE",
+        className: "purple",
+        speed: "9 SECONDS"
+    },
+    {
+        name: "NEON ORANGE",
+        className: "orange",
+        speed: "4 SECONDS"
+    },
+    {
+        name: "AQUA CYAN",
+        className: "cyan",
+        speed: "11 SECONDS"
+    }
+];
+
+// CREATE PYRAMIDS
+const container = document.getElementById("pyramidContainer");
+
+pyramids.forEach((item, index) => {
+
+    const card = document.createElement("section");
+
+    card.className = `card ${item.className}`;
+
+    card.innerHTML = `
+        <h2>${item.name}</h2>
+
+        <div class="scene">
+            <div class="pyramid">
+
+                <div class="glow"></div>
+
+                <div class="faces">
+                    <span style="--i:0"></span>
+                    <span style="--i:1"></span>
+                    <span style="--i:2"></span>
+                    <span style="--i:3"></span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="speed">
+            ROTATION : ${item.speed}
+        </div>
+    `;
+
+    container.appendChild(card);
+
+});
+
+</script>
+
+</body>
+</html>
